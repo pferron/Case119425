@@ -52,7 +52,7 @@
       },
       {
         "description": "Bump minor/patch aws dependency updates once a month",
-        "packageNames": ["aws-sdk"],
+        "matchPackageNames": ["aws-sdk"],
         "matchUpdateTypes": ["minor", "patch"],
         "extends": ["schedule:weekly"],
         "automerge": true
