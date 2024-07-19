@@ -27,41 +27,49 @@
   },
   "remediateSettings": {
     "enableRenovate": "true",
-    "transitiveRemediation": "true",
-    "extends": [
-      ":dependencyDashboard",
-      "github>whitesource/merge-confidence:beta",
-      ":ignoreModulesAndTests",
-      "group:monorepos",
-      "group:recommended",
-      "replacements:all",
-      "workarounds:all"
-    ],
-    "prConcurrentLimit": 0,
-    "prHourlyLimit": 5,
-    "commitMessagePrefix": "renovate: ",
-    "ignoreDeps": ["node","react","react-dom","d3","@mswjs/interceptors"],
+    "extends": ["config:base"],
     "packageRules": [
       {
-        "matchUpdateTypes": ["major"],
-        "automerge": false
-      },
-      {
-        "matchUpdateTypes": ["minor", "patch", "pin"],
-        "automerge": true
-      },
-      {
-        "description": "Bump minor/patch aws dependency updates once a month",
-        "matchPackageNames": ["aws-sdk"],
+        "description": "Minor/Patch updates to Drone plugin containers",
+        "matchFileNames": [".drone.yaml"],
+        "matchDatasources": ["docker"],
         "matchUpdateTypes": ["minor", "patch"],
-        "extends": ["schedule:weekly"],
         "automerge": true
+      },
+      {
+        "matchDepTypes": ["devDependencies"],
+        "matchUpdateTypes": ["minor", "patch"],
+        "automerge": true
+      },
+      {
+        "matchDepTypes": ["dependencies"],
+        "matchUpdateTypes": ["minor", "patch"],
+        "automerge": true
+      },
+      {
+        "matchDatasources": ["docker"],
+        "semanticCommitType": "ci",
+        "matchPackageNames": ["node"],
+        "versioning": "node"
+      },
+      {
+        "matchUpdateTypes": ["patch"],
+        "schedule": ["every 8 hours"]
+      },
+      {
+        "matchUpdateTypes": ["minor"],
+        "schedule": ["on Monday"]
+      },
+      {
+        "matchUpdateTypes": ["major"],
+        "schedule": ["on the first day of the month"]
+      },
+      {
+        "matchDatasources": ["docker"],
+        "matchDepNames": ["isgdevops/iam-autopilot"],
+        "replacementName": "johndeere/iam-autopilot"
       }
-    ],
-    "timezone": "America/Chicago",
-    "schedule": ["after 8am every weekday", "before 5pm every weekday"],
-    "automergeSchedule": ["after 8am every weekday","before 5pm every weekday"]
+    ]
   }
-}
 
 
