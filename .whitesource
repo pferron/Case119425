@@ -27,6 +27,7 @@
   },
   "remediateSettings": {
     "enableRenovate": "true",
+    "commitBody": "[skip ci]",
     "extends": ["config:base"],
     "packageRules": [
       {
